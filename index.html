@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Static Template</title>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js" type="text/javascript"></script>
+
+
+
+
+    
+    <script  >
+
+var _baseUrl = "";
+    
+var TIME_STATIONARY = 30 * 60; // DRIVER_RATING_THRESHOLD
+var TIME_MOVING = 30;
+var IMG_OTHER = _baseUrl + "img/amberBall.gif";
+var IMG_STOP = _baseUrl + "img/blueBall.gif";
+var IMG_MOVING = _baseUrl + "img/redBall.gif";
+var IMG_MOVE_PROB = _baseUrl +  "img/magentaBall.gif";
+var IMG_BATT_OK = _baseUrl + "img/greenBall.gif";
+
+var IMG_HOME = _baseUrl + "img/map/home.png";
+var IMG_HOME_RED = _baseUrl +  "img/map/home-red.png";
+
+var map;
+var icons;
+var polyPoints;
+var markers;
+var options;
+var infoWindows
+
+// Constants:
+var fillColor = "#0000FF"; // blue fill
+var lineColor = "#FF0000"; // Red line
+var opacity = .7;
+var lineWeight = 4;
+
+
+var ICON_START = 7;
+var ICON_END = 8;
+
+    
+    
+    </script>     
+
+
+
+
+
+
+  </head>
+  <body>
+
+    <div id="app">
+      <v-app id="inspire">
+        <v-card
+          max-width="450"
+          class="mx-auto"
+        >
+          <v-toolbar
+            color="cyan"
+            dark
+          >
+            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      
+            <v-toolbar-title>Inbox</v-toolbar-title>
+      
+            <v-spacer></v-spacer>
+      
+            <v-btn icon>
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+          </v-toolbar>
+
+
+        <!-- List the first one -->
+      
+
+        <!--  List the Vehicles -->
+        <!--    _________________________________________________________________________________________-->
+        <v-list three-line>
+            <template v-for="(item, index) in vehicles">
+              <v-subheader
+                v-if="item.header"
+                :key="item.UnitID"
+                v-text="item.header"
+              ></v-subheader>
+      
+              <v-divider
+                v-else-if="item.divider"
+                :key="index"
+                :inset="item.inset"
+              ></v-divider>
+      
+              <v-list-item
+                v-else
+                :key="item.title"
+                @click=""
+                :to="'/foo/' + item.UnitID"
+              >
+                <v-list-item-avatar>
+                  <v-img :src="item.avatar"></v-img>
+                </v-list-item-avatar>
+
+                <!--
+"<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos."
+
+to="/foo"
+       <v-list-item  to="/foo" link >
+            <v-list-item-action>
+              <v-icon>mdi-contact-mail</v-icon>
+
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Contact</v-list-item-title>
+            </v-list-item-content>
+
+          </v-list-item>
+
+               -->
+      
+                <v-list-item-content> 
+                  <v-list-item-title v-html="item.RegNumber"></v-list-item-title>
+                  <v-list-item-subtitle v-html="item.subTitle"></v-list-item-subtitle>
+                  
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-list>  <!-- --END OF LIST-->
+
+
+        <!--  List the Assets -->
+        <!--    _________________________________________________________________________________________-->
+
+
+        <v-list three-line>
+          <template v-for="(item, index) in assets">
+            <v-subheader
+              v-if="item.header"
+              :key="item.UnitID"
+              v-text="item.header"
+            ></v-subheader>
+    
+            <v-divider
+              v-else-if="item.divider"
+              :key="index"
+              :inset="item.inset"
+            ></v-divider>
+    
+            <v-list-item
+              v-else
+              :key="item.title"
+              @click=""
+            >
+              <v-list-item-avatar>
+                <v-img :src="item.avatar"></v-img>
+              </v-list-item-avatar>
+
+              <!--
+"<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos."
+function formatImageIgnStat(cellValue) {
+
+              -->
+    
+              <v-list-item-content> 
+                <v-list-item-title v-html="item.RegNumber"></v-list-item-title>
+                <v-list-item-subtitle v-html="item.subTitle"></v-list-item-subtitle>
+                
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-list>  <!-- --END OF LIST-->        
+
+
+
+
+        </v-card>
+
+        <v-content>
+          <v-container class="fill-height" fluid>
+            <router-view />
+          </v-container>
+        </v-content>
+
+      </v-app>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>     
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+
+
+
+    <script src="index.routines.js"></script>
+    <script>
+
+//import mock from "../api5/V5_view_VehiclePositions_.json";
+
+    const Foo = { template: '<div> <h1> foo:  {{ $route.params.id }} </h1> </div>' }
+    const Bar = { template: '<div>bar</div>' }
+
+    const User = {
+      template: '<div>User {{ $route.params.id }}</div>'
+    }      
+    
+    const router = new VueRouter({
+      routes: [
+      { path: '/foo/:id', component: Foo },
+      { path: '/bar', component: Bar },
+
+      { path: '/user/:id', component: User },
+      { path: '/user', component: User }
+
+      ]
+    })
+
+
+
+new Vue({
+  el: '#app',
+  vuetify: new Vuetify(),
+  router,
+  data: () => ({
+    items: [],
+    vehicles:[],
+    assets:[]
+  }),
+
+        
+   mounted () {
+        axios
+          .get(  'api/V5_.json')
+          .then(response => { 
+
+             // Add avat to things
+              // debugger;
+              response.data.$values.map(function(value, key) {
+                  formatImageIgnStat(value)
+                  formantSubTitle(value)
+                });
+
+              this.items = response.data.$values
+
+              this.vehicles = _.filter(this.items, function (item) {
+                        return item.UnitModel2ID !== 35;
+              });
+
+              this.assets = _.filter(this.items, function (item) {
+                        return item.UnitModel2ID === 35;
+              });
+
+              //console.log(response);
+            
+         })
+    },
+   
+  computed: {
+    // a computed getter
+    reversedMessage: function () {
+      // `this` points to the vm instance
+      debugger
+      return this.message.split('').reverse().join('')
+    }
+
+ }
+
+
+
+})
+
+    </script>
+
+
+  </body>
+</html>
